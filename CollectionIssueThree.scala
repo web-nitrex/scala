@@ -28,15 +28,16 @@ object CollectionIssueThree {
       readData
     }
 
-
-    val size=list_prices.size
-
-    println("NASDAQ:GOOG =" + list_prices.map(t=>t._2).sum/list_prices.size)
-    println("NASDAQ:MSFT =" + list_prices.map(t=>t._3).sum/list_prices.size)
-    println("NASDAQ:AMZN =" + list_prices.map(t=>t._4).sum/list_prices.size)
-    println("NASDAQ:FB =" + list_prices.map(t=>t._5).sum/list_prices.size)
-
     bufferedSource.close
+
+    if(list_prices.size>0)
+      {
+        println("NASDAQ:GOOG =" + list_prices.map(t=>t._2).sum/list_prices.size)
+        println("NASDAQ:MSFT =" + list_prices.map(t=>t._3).sum/list_prices.size)
+        println("NASDAQ:AMZN =" + list_prices.map(t=>t._4).sum/list_prices.size)
+        println("NASDAQ:FB =" + list_prices.map(t=>t._5).sum/list_prices.size)
+      }
+
 
   }
 
