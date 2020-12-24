@@ -14,35 +14,34 @@ object CollectionIssueThree {
 
     val bufferedSource = io.Source.fromFile("hdata_stock.csv")
 
-    val list_prices = {
-      val readData = new ArrayBuffer[(String, Double, Double, Double, Double)]()
+    //результирующий кортеж,куда будет записываться сумма столбцов
+    var result = Tuple4(0.0, 0.0, 0.0, 0.0)
 
-      for (line <- bufferedSource.getLines.drop(1)) {
+    //количество считанных строк
+    var size=0
 
-        val cols = line.split(";")
-        // do whatever you want with the columns here
+    for (line <- bufferedSource.getLines.drop(1)) {
 
-         if(cols.length==5) readData += ((cols(0), cols(1).toDouble, cols(2).toDouble, cols(3).toDouble, cols(4).toDouble))
+      val cols = line.split(";")
+      // do whatever you want with the columns here
+
+      if(cols.length==5)
+      {
+        result = (result._1+cols(1).toDouble, result._2+cols(2).toDouble, result._3+cols(3).toDouble, result._4+cols(4).toDouble)
+        size=size+1
       }
 
-      readData
     }
 
     bufferedSource.close
 
-    if(list_prices.size>0)
+    if(size>0)
       {
-        println("NASDAQ:GOOG =" + list_prices.map(t=>t._2).sum/list_prices.size)
-        println("NASDAQ:MSFT =" + list_prices.map(t=>t._3).sum/list_prices.size)
-        println("NASDAQ:AMZN =" + list_prices.map(t=>t._4).sum/list_prices.size)
-        println("NASDAQ:FB =" + list_prices.map(t=>t._5).sum/list_prices.size)
+        println("NASDAQ:GOOG =" + result._1/size)
+        println("NASDAQ:MSFT =" + result._2/size)
+        println("NASDAQ:AMZN =" + result._3/size)
+        println("NASDAQ:AMZN =" + result._4/size)
       }
 
-
   }
-
-
-
-
-
 }
